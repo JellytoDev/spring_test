@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!-- core -->
+  <script src="../libs/jquery/jquery.min.js"></script>
+  <script src="../libs/angularjs/angular.min.js"></script>
+
+  <!-- libs -->
+  <script src="../libs/chartjs/chart.min.js"></script>
+  <script src="../libs/ckeditor5/ballonblock/ckeditor.js"></script>
+  <script src="../libs/toastr/toastr.min.js"></script>
+  <script src="../libs/showdown/showdown.min.js"></script>
+
+  <!-- css core -->
+  <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-flags.min.css">
+  <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-payments.min.css">
+  <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-vendors.min.css">
+  <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/demo.min.css">
+
+  <link rel="stylesheet" href="../libs/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="../libs/toastr/toastr.min.css">
+  <script>
+    const container = angular.module("container", []);
+    container.controller("container-controller", async ($scope,$timeout)=> {
+
+      // 테스트 변수들
+      $scope.is_exist = true;
+      $scope.test_value = "test value"
+      $scope.test_class = "test-class"
+      $scope.test_class_color = "bg-dark"
+      $scope.test_bool_dic = {
+        'bg-warning':true,
+        'text-success':true,
+        'text-dark':false
+      }
+
+      $scope.friends = [{name:'John', phone:'555-1276'},{name:'Mary', phone:'800-BIG-MARY'},{name:'Mike', phone:'555-4321'},{name:'Adam', phone:'555-5678'}]
+
+      $scope.event = {
+        test_console:async ()=>{
+          console.log("test console")
+        },
+        test_attr_console:async (target)=>{
+          console.log("target : ",$("#test-get-value").attr("name"))
+        }
+      }
+
+
+
+      $scope.test_array = ['a','b','c','d','e']
+      $scope.test_html = `I am an <code>HTML</code>string with<a href="#">links!</a>`;
+      $scope.test_href = "signin"
+
+      //checkbox
+      // expect 는 js에서 테스트 작성 타입이다.
+      $scope.test_check_model = {
+        value1 : 'NO',
+        value2 : false
+      };
+
+      //ng-change
+      $scope.test_counter = 0;
+      $scope.test_change = function() {
+        $scope.test_counter++;
+      };
+
+      // 다른 모델로 데이터 바인딩
+      $scope.greet  = async ()=>{
+        console.log("greet call")
+        $scope.message = "Hello user name : "+$scope.user.name;
+      }
+
+      // 반복문 위한 dic array
+      $scope.test_dic_array = [
+        {
+          name:"test_array",country:"test_array_value"
+        },
+        {
+          name:"test_array2",country:"test_array_value2"
+        },
+        {
+          name:"test_array3",country:"test_array_value3"
+        },
+        {
+          name:"test_array4",country:"test_array_value4"
+        }
+      ]
+
+
+      // 템플릿 데이터 전달
+      let resp = await wiz.connect("test.template.test")
+              .data({
+                title: "Template Confirm",
+              })
+              .event("template-connect");
+
+      // 깊은복사
+      $scope.test_dic_array_copy = angular.copy($scope.test_dic_array)
+
+
+
+    });
+
+  </script>
+</head>
+<body>
+<div class="container" ng-app="container" ng-controller="container-controller">
+
+  <!-- html 요소-->
+  <div class="mb-2">* html 요소
+    <input class="form-control" type="text" ng-value="test_value" />
+  </div>
+
+  <!-- ng-bind html간 데이터 이동-->
+  <div class="mb-2">* html간 데이터 이동
+    <input class="form-control" type="text" ng-model="user.name" />
+    <div>그냥 중괄호: {{user.name}}</div>
+    bind : <span ng-bind="user.name"></span>
+  </div>
+
+  <!-- ng-click dic 함수 변수 테스트-->
+  <div class="mb-2">* dic 변수 테스트
+    <button ng-click="event.test_console()">테스트 콘솔</button>
+  </div>
+
+  <!-- angular안됨, jquery 속성값 가져오기-->
+  <div class="mb-2">* ng 속성값 가져오기
+    <button ng-click="event.test_attr_console(this)" id="test-get-value" name="target_name" data-name="target-data-name">테스트 콘솔</button>
+  </div>
+
+  <!-- ng-mouse* 마우스 event-->
+  <div class="mb-2">* 마우스 이벤트
+    <button ng-mousedown="test_counter = test_counter+1" ng-init="test_counter=0">moude down</button>
+    <button ng-mouseenter="test_counter = test_counter+1" ng-init="test_counter=0">mouse enter</button>
+    <div>count:{{test_counter}}</div>
+  </div>
+
+  <!-- ng-href 마우스 링크-->
+  <div class="mb-2">* html 링크 테스트
+    <div>ng-href 테스트<a ng-href="/{}">링크 1</a><a ng-href="{{test_value}}">링크 </a></div>
+  </div>
+
+  <!-- form 데이터 테스트-->
+  <div class="mb-2">* form 데이터 테스트
+    <form name="test_form1">
+      <label>value1:
+        <input type="checkbox" ng-model="test_check_model.value1" ng-true-value="'YES'" ng-false-value="'NO'" />
+      </label>
+      <label>value2:
+        <input type="checkbox" ng-model="test_check_model.value2" />
+      </label>
+      <div>
+        <span>{{test_check_model.value1}} &nbsp;&nbsp;</span><span>{{test_check_model.value2}}</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- ng-bind-html html 바인드-->
+  <div class="mb-2">* html 바인드
+    <div ng-bind-html="test_html"></div>
+  </div>
+
+  <!-- ng-change-->
+  <div class="mb-2">* ng-change
+    <input type="checkbox" ng-change="test_change()" ng-model="test_change_counter" />
+    <div>{{test_counter}}</div>
+  </div>
+
+  <!-- ng-class-->
+  <div class="bg-dark">hello</div>
+
+  <div class="mb-2">* ng-class 테스트<div class="text-white" ng-class="test_class_color">배경은 검게</div>
+    <div ng-class="is_exist ? 'bg-danger':'bg-primary'">if문 같이씀 배경 빨갛게</div>
+    <div ng-class="test_bool_dic">if문 딕셔너리 넘기기</div>
+  </div>
+
+  <!-- ng-click model 데이터 바인딩-->
+  <div class="mb-2">* model 데이터 바인딩
+    <button ng-click="greet()">Click Here</button>
+  </div>
+
+  <!-- ng-show html 요소 숨기기-->
+  <div class="mb-2">* html 요소 숨기기<button ng-click="show=!show">show</button>
+    <div ng-show="show">
+      <div>i`m only show is ture</div>
+    </div>
+  </div>
+
+  <!-- ng-if, ng-switch 조건문-->
+  <div class="mb-2">* 조건문<div ng-switch="" on="user.name">
+    <div ng-switch-when="test">switch맞게 입력하셨습니다.</div>
+  </div>
+    <div ng-if="user.name=='test'">if문 맞게 입력하셨습니다.</div>
+  </div>
+
+  <!--ng-repeat 반복문-->
+  <div class="mb-2">* 반복문 (html 데이터 이동 이용)<ul>
+    <li ng-repeat="test_arr in test_dic_array">{{test_arr.name}} 는 {{test_arr.value}}</li>
+  </ul>
+  </div>
+
+  <!-- {{if문 ? a : b}}삼항 연산자-->
+  <div class="mb-2">* 삼항 연산자<span>&nbsp;&nbsp;{{is_exist ? 'yes!':'no!'}}</span></div><!-- filter:searchText filter -->
+  <div>
+    <label>Search:
+      <input ng-model="searchText" />
+    </label>
+    <table id="searchTextResults">
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+      </tr>
+      <tr ng-repeat="friend in friends| filter:searchText">
+        <td>{{friend.name}}</td>
+        <td>{{friend.phone}}</td>
+      </tr>
+    </table>
+    <hr />
+    <label>Any:
+      <input ng-model="search.$" />
+    </label><br />
+    <label>Name only <input ng-model="search.name" /></label><br />
+    <label>Phone only <input ng-model="search.phone" /></label><br />
+    <label>Equality <input type="checkbox" ng-model="strict" /></label><br />
+    <table id="searchObjResults">
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+      </tr>
+      <tr ng-repeat="friendObj in friends | filter:search:strict">
+        <td>{{friendObj.name}}</td>
+        <td>{{friendObj.phone}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

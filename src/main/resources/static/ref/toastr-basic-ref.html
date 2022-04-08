@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- core -->
+    <script src="../libs/jquery/jquery.min.js"></script>
+    <script src="../libs/angularjs/angular.min.js"></script>
+
+    <!-- libs -->
+    <script src="../libs/chartjs/chart.min.js"></script>
+    <script src="../libs/ckeditor5/ballonblock/ckeditor.js"></script>
+    <script src="../libs/toastr/toastr.min.js"></script>
+    <script src="../libs/showdown/showdown.min.js"></script>
+
+    <!-- css core -->
+    <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler.min.css">
+    <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-flags.min.css">
+    <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-payments.min.css">
+    <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/tabler-vendors.min.css">
+    <link rel="stylesheet" href="../libs/tabler/Tabler/dist/css/demo.min.css">
+
+    <link rel="stylesheet" href="../libs/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../libs/toastr/toastr.min.css">
+
+    <script>
+        const container = angular.module("container", []);
+        container.controller("container-controller", async ($scope,$timeout)=> {
+
+            $scope.toastr_test = async ()=>{
+                toastr.success("success world");
+                toastr.error("error world");
+                toastr.info("info world")
+                toastr.warning("warning world");
+
+            }
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "1000",
+                "timeOut": "1500",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+        })
+
+    </script>
+</head>
+<body>
+<div class="container" ng-app="container" ng-controller="container-controller">
+    <button class="btn btn-primary" ng-click="toastr_test()">테스트</button>
+
+</div>
+</body>
+</html>
