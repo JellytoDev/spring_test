@@ -24,8 +24,7 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//	jackson
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
 }
 
 
