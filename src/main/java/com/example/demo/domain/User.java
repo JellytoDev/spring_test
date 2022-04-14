@@ -4,21 +4,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@Builder
 public class User {
     @Id
+    @GeneratedValue
+    @Column(name = "user_id")
     private Long id;
     @Column(name="user_name")
     private String name;
     @Column(name="user_age")
     private int age;
+
+    @Column(name = "user_profile")
+    @OneToMany(mappedBy = "user")
+    private List<Profile> profile;
 
     public User() {
 
