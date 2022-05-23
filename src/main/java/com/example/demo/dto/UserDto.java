@@ -19,11 +19,10 @@ public class UserDto {
     // DTO (data transfer object)
     // 여기에 read-only 속성 가지면 vo 라고 함.
 
-    @NotBlank(message = "required.item.itemName")
-    @Size(min=4,max=15)
+    @NotBlank(message = "{required.user.userName}")
     private String name;
 
-    @Max(100)
-    @Min(20)
+    @Max(value = 100,message = "{max.age.number}")
+    @Min(value = 20,message = "{min.age.number}")
     private int age;
 }

@@ -1,10 +1,16 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.UserDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @Controller
@@ -35,5 +41,22 @@ public class TestController {
     @GetMapping("/global")
     public String global(Model model) {
         return "global";
+    }
+
+    @GetMapping("/valid/view")
+    public String validView(Model model) {
+        model.addAttribute("userDto", new UserDto());
+        return "valid";
+    }
+
+    @PostMapping("/valid/view")
+    public String validPost(@Validated UserDto userDto, BindingResult bindingResult, Model model) {
+        System.out.println("userDto.getName() = " + userDto.getName()+" "+bindingResult.hasErrors());
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("bindingResult = " + bindingResult.getAllErrors());
+            return "valid :: #form";
+        }
+        return "index";
     }
 }

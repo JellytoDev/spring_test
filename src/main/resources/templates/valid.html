@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/valid/view" th:object="${userDto}" method="POST" id="form">
+        <input type="text" th:field="*{name}">
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        <input type="number" th:field="*{age}">
+        <p th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+        <button type="submit">제출</button>
+    </form>
+</body>
+</html>
