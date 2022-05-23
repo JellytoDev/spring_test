@@ -11,7 +11,7 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 public class TestController {
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         HashMap<Object, Object> first = new HashMap<>();
         HashMap<Object, Object> second = new HashMap<>();
         HashMap<Object, Object> third = new HashMap<>();
@@ -27,9 +27,13 @@ public class TestController {
         third.put("last", last);
 
 
-
         model.addAttribute("first", first);
 
         return "index";
+    }
+
+    @GetMapping("/global")
+    public String global(Model model) {
+        return "global";
     }
 }

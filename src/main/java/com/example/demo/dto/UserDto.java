@@ -19,7 +19,7 @@ public class UserDto {
     // DTO (data transfer object)
     // 여기에 read-only 속성 가지면 vo 라고 함.
 
-    @NotBlank
+    @NotBlank(message = "required.item.itemName")
     @Size(min=4,max=15)
     private String name;
 
