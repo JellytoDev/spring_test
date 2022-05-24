@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestRestController {
 
-
     @PostMapping(value="/valid", produces = "application/json",consumes = "application/json")
     @ResponseBody
     public String validationTest(@Validated @RequestBody UserDto userDto, BindingResult bindingResult) {
